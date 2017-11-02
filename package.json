@@ -17,6 +17,7 @@
   "scripts": {
     "build": "tsc -p .",
     "lint": "tslint -p .",
+    "fix": "tslint --fix -p .",
     "test": "npm run build && npm run lint",
     "preversion": "npm test",
     "prepublishOnly": "npm run build"
@@ -27,6 +28,7 @@
     "@angular/core": ">=4.0.0-beta",
     "@angular/platform-browser": ">=4.0.0-beta",
     "@angular/platform-browser-dynamic": ">=4.0.0-beta",
+    "@types/node": "^8.0.47",
     "codelyzer": "^4.0.0",
     "rxjs": "^5.5.0",
     "tslint": "^5.8.0",
