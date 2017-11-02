@@ -1,0 +1,40 @@
+{
+  "name": "typestub-cryptico",
+  "version": "0.0.0",
+  "description": "typescript types for cryptico on npm",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/beenotung/typestub-cryptico.git"
+  },
+  "author": "Beeno Tung <aabbcc1241@yahoo.com.hk>",
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/beenotung/typestub-cryptico/issues"
+  },
+  "homepage": "https://github.com/beenotung/typestub-cryptico#readme",
+  "scripts": {
+    "build": "tsc -p .",
+    "lint": "tslint -p .",
+    "test": "npm run build && npm run lint",
+    "preversion": "npm test",
+    "prepublishOnly": "npm run build"
+  },
+  "devDependencies": {
+    "@angular/common": ">=4.0.0-beta",
+    "@angular/compiler": ">=4.0.0-beta",
+    "@angular/core": ">=4.0.0-beta",
+    "@angular/platform-browser": ">=4.0.0-beta",
+    "@angular/platform-browser-dynamic": ">=4.0.0-beta",
+    "codelyzer": "^4.0.0",
+    "rxjs": "^5.5.0",
+    "tslint": "^5.8.0",
+    "tslint-eslint-rules": "^4.1.1",
+    "typescript": "^2.6.1",
+    "zone.js": "^0.8.4"
+  },
+  "dependencies": {
+    "cryptico": "^1.0.2"
+  }
+}
