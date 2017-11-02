@@ -11,14 +11,28 @@ export class RSAKey {
   coeff;
 }
 
+export type Status = "success" | string;
+
+export interface EncryptResult {
+  cipher: string;
+  status: Status;
+}
+
+export interface DecryptResult {
+  plaintext: string;
+  publicKeyString: string;
+  signature: "verified" | string;
+  status: Status;
+}
+
 export interface Cryptico {
-  b256to64 (t) ;
+  b256to64 (t);
 
-  b64to256 (t) ;
+  b64to256 (t);
 
-  b16to64 (h) ;
+  b16to64 (h);
 
-  b64to16 (s) ;
+  b64to16 (s);
 
   string2bytes (string);
 
@@ -36,21 +50,21 @@ export interface Cryptico {
 
   decryptAESCBC (encryptedText, key);
 
-  wrap60 (string) ;
+  wrap60 (string);
 
   generateAESKey ();
 
-  generateRSAKey (passphrase: string, bitlength: number);
+  generateRSAKey (passphrase: string, bitlength: number): RSAKey;
 
-  publicKeyString (rsakey: RSAKey) ;
+  publicKeyString (rsakey: RSAKey): string;
 
-  publicKeyID (publicKeyString);
+  publicKeyID (publicKeyString): string;
 
-  publicKeyFromString (string);
+  publicKeyFromString (string: string);
 
-  encrypt (plaintext, publickeystring, signingkey);
+  encrypt (plaintext: string, publickeystring: string, signingkey: RSAKey): EncryptResult;
 
-  decrypt (ciphertext, key);
+  decrypt (ciphertext: string, key): DecryptResult;
 }
 
 const cryptico: Cryptico = _cryptico;
