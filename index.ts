@@ -1,17 +1,81 @@
 import * as _cryptico from "cryptico";
 
-export class RSAKey {
-  n;
-  e;
-  d;
-  p;
-  q;
-  dmp1;
-  dmq1;
-  coeff;
+export interface Type<A> extends Function {
+  new (...args: any[]): A;
+}
+
+export declare namespace cryptico_ns {
+  export class RSAKey {
+    n; // : BigInteger;
+    e; // : number;
+    d; // : BigInteger;
+    p; // : BigInteger;
+    q; // : BigInteger;
+    dmp1; // : BiquadFilterType;
+    dmq1; // : BigInteger;
+    coeff; // : BigInteger;
+
+    // protected
+    doPublic(x);
+
+    // protected
+    doPrivate(x);
+
+    // public
+    setPublic(N, E);
+
+    // public
+    encrypt(text);
+
+    // public
+    setPrivate(N, E, D);
+
+    // public
+    setPrivateEx(N, E, D, P, Q, DP, DQ, C);
+
+    // public
+    generate(B, E);
+
+    // public
+    decrypt(ctext);
+
+    // ====================
+    // Signature Generation
+    // ====================
+
+    signString(s, hashAlg);
+
+    signStringWithSHA1(s);
+
+    signStringWithSHA256(s);
+
+    verifyString(sMsg, hSig);
+
+    verifyHexSignatureForMessage(hSig, sMsg);
+
+    // ====================
+    // Serialization
+    // ====================
+
+    // public
+    toJSON(): {
+      coeff: string
+      d: string
+      dmp1: string
+      dmq1: string
+      e: string
+      n: string
+      p: string
+      q: string
+    };
+
+    static parse(rsaString: string): RSAKey;
+  }
 }
 
 export interface Cryptico {
+  RSAKey: Type<cryptico_ns.RSAKey>
+
   b256to64 (t) ;
 
   b64to256 (t) ;
@@ -42,7 +106,7 @@ export interface Cryptico {
 
   generateRSAKey (passphrase: string, bitlength: number);
 
-  publicKeyString (rsakey: RSAKey) ;
+  publicKeyString (rsakey: cryptico_ns.RSAKey) ;
 
   publicKeyID (publicKeyString);
 

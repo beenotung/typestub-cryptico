@@ -17,6 +17,7 @@
   "scripts": {
     "build": "tsc -p .",
     "lint": "tslint -p .",
+    "fix": "tslint -p . --fix",
     "test": "npm run build && npm run lint",
     "preversion": "npm test",
     "prepublishOnly": "npm run build"
