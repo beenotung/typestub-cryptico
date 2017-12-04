@@ -137,3 +137,4 @@ export interface Cryptico {
 
 const cryptico: Cryptico = _cryptico;
 export default cryptico;
+export let RSAKey = cryptico.RSAKey;
