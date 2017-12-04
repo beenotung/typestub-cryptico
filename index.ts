@@ -11,6 +11,24 @@ export class RSAKey {
   coeff;
 }
 
+export declare type Status = "success" | string;
+
+export interface EncryptResult {
+  cipher: string;
+  status: Status;
+}
+
+export interface DecryptResult {
+  plaintext: string;
+  publicKeyString: string;
+  signature: "verified" | string;
+  status: Status;
+}
+
+export declare function encryptRSA(plaintext: string, publickeystring: string, signingkey: RSAKey): string;
+
+export declare function decryptRSA(ciphertext: string, publickeystring: string, key: RSAKey): string;
+
 export interface Cryptico {
   b256to64 (t) ;
 
