@@ -11,6 +11,8 @@ export type ascii = string;
 export type bytes = number[];
 export type lines = string;
 
+export type AESKey = bytes;
+
 export declare namespace cryptico_ns {
   export class RSAKey {
     n; // : BigInteger;
@@ -111,21 +113,23 @@ export interface Cryptico {
 
   bytes2string (bytes: bytes): ascii;
 
-  blockXOR (a, b);
+  /* all are 16-byte number array */
+  blockXOR (a: bytes, b: bytes): bytes;
 
-  blockIV ();
+  /* return 16-byte number array */
+  blockIV (): bytes;
 
   pad16 (bytes: bytes): bytes;
 
   depad (bytes: bytes): bytes;
 
-  encryptAESCBC (plaintext, key);
+  encryptAESCBC (plaintext: ascii, key: AESKey): base64;
 
-  decryptAESCBC (encryptedText, key);
+  decryptAESCBC (encryptedText: base64, key): ascii;
 
   wrap60 (string: string): lines;
 
-  generateAESKey ();
+  generateAESKey (): AESKey;
 
   generateRSAKey (passphrase: string, bitlength: number): RSAKey;
 
