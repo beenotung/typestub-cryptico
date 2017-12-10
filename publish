@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
 set -e
 npm version $1
+git push origin --follow-tags
 npm publish
