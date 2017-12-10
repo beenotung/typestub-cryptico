@@ -1,6 +1,6 @@
 {
   "name": "typestub-cryptico",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "typescript types for cryptico on npm",
   "main": "index.js",
   "types": "index.d.ts",
