@@ -1,18 +1,88 @@
 import * as _cryptico from "cryptico";
 import * as util from "util";
 
-export class RSAKey {
-  n;
-  e;
-  d;
-  p;
-  q;
-  dmp1;
-  dmq1;
-  coeff;
+export interface Type<A> extends Function {
+  new (...args: any[]): A;
 }
 
-export type Status = "success" | string;
+export type hex = string;
+export type base64 = string;
+export type ascii = string;
+export type bytes = number[];
+export type lines = string;
+
+export declare namespace cryptico_ns {
+  export class RSAKey {
+    n; // : BigInteger;
+    e; // : number;
+    d; // : BigInteger;
+    p; // : BigInteger;
+    q; // : BigInteger;
+    dmp1; // : BiquadFilterType;
+    dmq1; // : BigInteger;
+    coeff; // : BigInteger;
+
+    // protected
+    doPublic(x);
+
+    // protected
+    doPrivate(x);
+
+    // public
+    setPublic(N, E);
+
+    // public
+    encrypt(text: string): hex;
+
+    // public
+    setPrivate(N, E, D);
+
+    // public
+    setPrivateEx(N, E, D, P, Q, DP, DQ, C);
+
+    // public
+    generate(B, E);
+
+    // public
+    decrypt(ctext: hex): string;
+
+    // ====================
+    // Signature Generation
+    // ====================
+
+    signString(s, hashAlg);
+
+    signStringWithSHA1(s);
+
+    signStringWithSHA256(s);
+
+    verifyString(sMsg, hSig);
+
+    verifyHexSignatureForMessage(hSig, sMsg);
+
+    // ====================
+    // Serialization
+    // ====================
+
+    // public
+    toJSON(): {
+      coeff: string
+      d: string
+      dmp1: string
+      dmq1: string
+      e: string
+      n: string
+      p: string
+      q: string
+    };
+
+    static parse(rsaString: string): RSAKey;
+  }
+}
+
+export type RSAKey = cryptico_ns.RSAKey;
+
+export declare type Status = "success" | string;
 
 export interface EncryptResult {
   cipher: string;
@@ -27,31 +97,33 @@ export interface DecryptResult {
 }
 
 export interface Cryptico {
-  b256to64 (t);
+  RSAKey: Type<RSAKey> & { parse: (rawString: string) => RSAKey }
 
-  b64to256 (t);
+  b256to64 (t: ascii): base64;
 
-  b16to64 (h);
+  b64to256 (t: base64): ascii;
 
-  b64to16 (s);
+  b16to64 (h: hex): base64;
 
-  string2bytes (string);
+  b64to16 (s: base64): hex;
 
-  bytes2string (bytes);
+  string2bytes (string: ascii): bytes;
+
+  bytes2string (bytes: bytes): ascii;
 
   blockXOR (a, b);
 
   blockIV ();
 
-  pad16 (bytes);
+  pad16 (bytes: bytes): bytes;
 
-  depad (bytes);
+  depad (bytes: bytes): bytes;
 
   encryptAESCBC (plaintext, key);
 
   decryptAESCBC (encryptedText, key);
 
-  wrap60 (string);
+  wrap60 (string: string): lines;
 
   generateAESKey ();
 
